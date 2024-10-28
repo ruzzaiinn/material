@@ -1,0 +1,88 @@
+https://www.csdojo.io/data
+download sample data
+
+DATA VISUALIZATION
+import pandas as pd
+from matplotlib import pyplot as plt
+
+# Sample Data Visualization
+x = [1, 2, 3]
+y = [1, 4, 9]
+plt.plot(x, y)
+plt.title("Sample Data Visualization")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.show()
+
+# Data Visualization for 2 Lines
+x = [1, 2, 3]
+y = [1, 4, 9]
+z = [10, 5, 0]
+plt.plot(x, y)
+plt.plot(x, z)
+plt.title("Data Visualization for Two Lines")
+plt.xlabel("X-axis")
+plt.ylabel("Y and Z values")
+plt.show()
+
+# Loading and Plotting Sample Data (Assuming columns 'column_a', 'column_b', 'column_c' exist in sample_data.csv)
+sample_data = pd.read_csv('sample_data.csv')
+print(sample_data)
+
+# Plot of column_b and column_c against column_a
+plt.plot(sample_data.column_a, sample_data.column_b, label="Column B")
+plt.plot(sample_data.column_a, sample_data.column_c, label="Column C")
+plt.title("Sample Data: Column B and Column C vs Column A")
+plt.xlabel("Column A")
+plt.ylabel("Values of Column B and C")
+plt.legend()
+plt.show()
+
+# Scatter plot for column_b and line plot for column_c against column_a
+plt.plot(sample_data.column_a, sample_data.column_b, 'o', label="Column B (scatter)")
+plt.plot(sample_data.column_a, sample_data.column_c, label="Column C (line)")
+plt.title("Scatter and Line Plot for Columns B and C")
+plt.xlabel("Column A")
+plt.ylabel("Values of Column B and C")
+plt.legend()
+plt.show()
+
+# Loading countries data and displaying
+data = pd.read_csv('countries.csv')
+print(sample_data)
+print("---------------------------------------")
+print(data)
+print("---------------------------------------")
+
+# Population Growth in the US and China
+us = data[data.country == 'United States']
+china = data[data.country == 'China']
+
+# Population over time in the US
+plt.plot(us.year, us.population / 10**6)
+plt.title("Population Growth Over Time in the United States")
+plt.xlabel("Year")
+plt.ylabel("Population")
+plt.show()
+
+# Population in the US and China (in millions)
+plt.plot(us.year, us.population / 10**6, label="United States")
+plt.plot(china.year, china.population / 10**6, label="China")
+plt.title("Population Comparison Between United States and China")
+plt.xlabel("Year")
+plt.ylabel("Population (millions)")
+plt.legend()
+plt.show()
+
+# Population growth rate in the US and China (first year = 100)
+plt.plot(us.year, us.population / us.population.iloc[0] * 100, label="United States")
+plt.plot(china.year, china.population / china.population.iloc[0] * 100, label="China")
+plt.title("Population Growth Rate in the United States and China")
+plt.xlabel("Year")
+plt.ylabel("Population Growth (first year = 100%)")
+plt.legend()
+plt.show()
+
+
+
+

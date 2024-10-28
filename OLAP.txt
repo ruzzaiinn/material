@@ -1,0 +1,58 @@
+-- Create Customers Table
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    Name NVARCHAR(100),
+    ContactNumber NVARCHAR(15),
+    Email NVARCHAR(100),
+    JoinDate DATE
+);
+
+-- Create Orders Table with a foreign key reference to Customers
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    OrderDate DATETIME,
+    CustomerID INT,
+    TotalAmount DECIMAL(10,2),
+    PaymentMethod NVARCHAR(50),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+-- Insert data into Customers
+INSERT INTO Customers (CustomerID, Name, ContactNumber, Email, JoinDate)
+VALUES 
+(1, 'Alice Smith', '1234567890', 'alice@example.com', '2023-01-01'),
+(2, 'Bob Johnson', '2345678901', 'bob@example.com', '2023-02-01'),
+(3, 'Charlie Brown', '3456789012', 'charlie@example.com', '2023-03-01'),
+(4, 'Diana Prince', '4567890123', 'diana@example.com', '2023-04-01');
+
+-- Insert data into Orders
+INSERT INTO Orders (OrderID, OrderDate, CustomerID, TotalAmount, PaymentMethod)
+VALUES 
+(101, '2023-01-10', 1, 200.50, 'Credit Card'),
+(102, '2023-01-15', 2, 150.75, 'Cash'),
+(103, '2023-01-20', 1, 100.00, 'Credit Card'),
+(104, '2023-02-10', 3, 250.25, 'Debit Card'),
+(105, '2023-03-05', 4, 300.00, 'Cash');
+
+-- Slice Operation: Select orders for CustomerID 1
+SELECT * FROM Orders
+WHERE CustomerID = 1;
+
+-- Dice Operation: Select orders paid by Credit Card with TotalAmount between 100 and 200
+SELECT * FROM Orders
+WHERE PaymentMethod = 'Credit Card' AND TotalAmount BETWEEN 100 AND 200;
+
+-- Roll-Up Operation: Summing total amount spent by each customer
+SELECT CustomerID, SUM(TotalAmount) AS TotalSpent
+FROM Orders
+GROUP BY CustomerID;
+
+-- Drill-Down Operation: Detailed view for orders on '2023-01-10'
+SELECT * FROM Orders
+WHERE OrderDate = '2023-01-10';
+
+-- Query to display all content of the Customers table
+SELECT * FROM Customers;
+
+-- Query to display all content of the Orders table
+SELECT * FROM Orders;

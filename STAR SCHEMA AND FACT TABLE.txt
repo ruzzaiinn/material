@@ -1,0 +1,101 @@
+-- Step 1: Create the database
+CREATE DATABASE LibraryDB;
+
+-- Step 2: Use the created database
+USE LibraryDB;
+
+-- Step 3: Create tables within the database
+CREATE TABLE Book (
+    Book_ID INT PRIMARY KEY,
+    Title VARCHAR(255),
+    ISBN VARCHAR(13),
+    Publisher VARCHAR(255),
+    Publication_year INT
+);
+
+CREATE TABLE Author (
+    Author_ID INT PRIMARY KEY,
+    Biography TEXT,
+    Name VARCHAR(255)
+);
+
+CREATE TABLE Category (
+    Category_ID INT PRIMARY KEY,
+    Category_name VARCHAR(255),
+    Description TEXT
+);
+
+CREATE TABLE Member (
+    Member_ID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Email VARCHAR(255),
+    Membership_date DATE
+);
+
+CREATE TABLE Date (
+    Date_key INT PRIMARY KEY,
+    Date DATE,
+    Month INT,
+    Year INT
+);
+
+CREATE TABLE Fact_Table (
+    Transaction_ID INT PRIMARY KEY,
+    Book_ID INT,
+    Author_ID INT,
+    Category_ID INT,
+    Member_ID INT,
+    Date_key INT,
+    Fine_amount DECIMAL(10, 2),
+    
+    FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID),
+    FOREIGN KEY (Author_ID) REFERENCES Author(Author_ID),
+    FOREIGN KEY (Category_ID) REFERENCES Category(Category_ID),
+    FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID),
+    FOREIGN KEY (Date_key) REFERENCES Date(Date_key)
+);
+
+INSERT INTO Book (Book_ID, Title, ISBN, Publisher, Publication_year)
+VALUES
+(1, 'The Great Gatsby', '9780141182636', 'Penguin', 1925),
+(2, 'To Kill a Mockingbird', '9780060935467', 'Harper Perennial', 1960),
+(3, '1984', '9780451524935', 'Signet Classics', 1949),
+(4, 'Pride and Prejudice', '9780141040349', 'Penguin Classics', 1813),
+(5, 'Moby-Dick', '9780142437247', 'Penguin Classics', 1851);
+INSERT INTO Author (Author_ID, Biography, Name)
+VALUES
+(1, 'F. Scott Fitzgerald was an American novelist and short story writer.', 'F. Scott Fitzgerald'),
+(2, 'Harper Lee was an American novelist best known for To Kill a Mockingbird.', 'Harper Lee'),
+(3, 'George Orwell was an English novelist, essayist, and critic.', 'George Orwell'),
+(4, 'Jane Austen was an English novelist known for her novels of romantic fiction.', 'Jane Austen'),
+(5, 'Herman Melville was an American novelist, short story writer, and poet.', 'Herman Melville');
+
+INSERT INTO Category (Category_ID, Category_name, Description)
+VALUES
+(1, 'Classic', 'Timeless literary works of enduring quality.'),
+(2, 'Historical', 'Works set in a past time period.'),
+(3, 'Science Fiction', 'Speculative fiction exploring futuristic concepts.'),
+(4, 'Romance', 'Novels focusing on romantic relationships.'),
+(5, 'Adventure', 'Novels featuring daring exploits and excitement.');
+INSERT INTO Member (Member_ID, Name, Email, Membership_date)
+VALUES
+(1, 'John Doe', 'john.doe@example.com', '2022-01-15'),
+(2, 'Jane Smith', 'jane.smith@example.com', '2022-02-20'),
+(3, 'Emily Johnson', 'emily.johnson@example.com', '2022-03-05'),
+(4, 'Michael Brown', 'michael.brown@example.com', '2022-04-18'),
+(5, 'Sarah Davis', 'sarah.davis@example.com', '2022-05-23');
+INSERT INTO Date (Date_key, Date, Month, Year)
+VALUES
+(1, '2022-01-15', 1, 2022),
+(2, '2022-02-20', 2, 2022),
+(3, '2022-03-05', 3, 2022),
+(4, '2022-04-18', 4, 2022),
+(5, '2022-05-23', 5, 2022);
+INSERT INTO Fact_Table (Transaction_ID, Book_ID, Author_ID, Category_ID, Member_ID, Date_key, Fine_amount)
+VALUES
+(1, 1, 1, 1, 1, 1, 5.00),
+(2, 2, 2, 2, 2, 2, 10.00),
+(3, 3, 3, 3, 3, 3, 7.50),
+(4, 4, 4, 4, 4, 4, 2.50),
+(5, 5, 5, 5, 5, 5, 12.00);
+

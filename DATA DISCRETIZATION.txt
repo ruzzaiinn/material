@@ -1,0 +1,15 @@
+DATA DISCRETIZATION
+# Import necessary libraries
+import pandas as pd
+# Sample data: Continuous income values
+income = [25000, 35000, 45000, 55000, 65000, 75000, 85000, 95000, 110000]
+# Convert data to a DataFrame
+df = pd.DataFrame({'Income': income})
+# Define the income bins and labels
+income_bins = [0, 30000, 60000, 90000, 120000]
+income_labels = ['Low', 'Medium', 'High', 'Very High']
+# Discretize the 'Income' data into specified bins
+df['Income Level'] = pd.cut(df['Income'], bins=income_bins, labels=income_labels)
+# Display the discrete data
+print(df)
+
